@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Trash2, Plus, Minus, ShoppingBag, MessageCircle, ArrowLeft } from 'lucide-react';
 import { useCart } from '@/contexts/CartContext';
@@ -9,6 +9,7 @@ import { useState } from 'react';
 const Cart = () => {
   const { items, removeFromCart, updateQuantity, subtotal } = useCart();
   const [observations, setObservations] = useState('');
+  const navigate = useNavigate();
 
   const whatsappNumber = '5582981696694';
 
@@ -33,34 +34,42 @@ const Cart = () => {
     return message;
   };
 
+  // 🔥 Limpa o carrinho completamente
+  const clearCartAfterCheckout = () => {
+    const ids = items.map((item) => item.product.id);
+    ids.forEach((id) => removeFromCart(id));
+    setObservations('');
+  };
+
   const handleFinishOrder = () => {
-  const message = generateWhatsAppMessage();
-  const encoded = encodeURIComponent(message);
+    const message = generateWhatsAppMessage();
+    const encoded = encodeURIComponent(message);
 
-  const isMobile =
-    /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+    const isMobile =
+      /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
 
-  if (isMobile) {
-    window.open(
-      `https://wa.me/${whatsappNumber}?text=${encoded}`,
-      '_blank',
-      'noopener,noreferrer'
-    );
-    return;
-  }
+    if (isMobile) {
+      window.open(`https://wa.me/${whatsappNumber}?text=${encoded}`, '_blank', 'noopener,noreferrer');
+    } else {
+      // Tenta WhatsApp Desktop
+      window.location.href = `whatsapp://send?phone=${whatsappNumber}&text=${encoded}`;
 
-  // Desktop: tenta abrir o WhatsApp Desktop
-  window.location.href = `whatsapp://send?phone=${whatsappNumber}&text=${encoded}`;
+      // Fallback WhatsApp Web
+      setTimeout(() => {
+        window.open(
+          `https://web.whatsapp.com/send?phone=${whatsappNumber}&text=${encoded}`,
+          '_blank',
+          'noopener,noreferrer'
+        );
+      }, 700);
+    }
 
-  // Fallback para WhatsApp Web
-  setTimeout(() => {
-    window.open(
-      `https://web.whatsapp.com/send?phone=${whatsappNumber}&text=${encoded}`,
-      '_blank',
-      'noopener,noreferrer'
-    );
-  }, 700);
-};
+    // ✅ Limpa carrinho + redireciona para home
+    setTimeout(() => {
+      clearCartAfterCheckout();
+      navigate('/');
+    }, 300);
+  };
 
   if (items.length === 0) {
     return (
@@ -70,7 +79,9 @@ const Cart = () => {
             <div className="w-24 h-24 bg-secondary rounded-full flex items-center justify-center mx-auto mb-6">
               <ShoppingBag className="h-12 w-12 text-muted-foreground" />
             </div>
-            <h1 className="font-display text-2xl font-bold text-foreground mb-4">Seu carrinho está vazio</h1>
+            <h1 className="font-display text-2xl font-bold text-foreground mb-4">
+              Seu carrinho está vazio
+            </h1>
             <p className="text-muted-foreground mb-8">
               Explore nosso catálogo e adicione produtos personalizados ao seu carrinho!
             </p>
@@ -96,12 +107,12 @@ const Cart = () => {
         </motion.div>
 
         <div className="grid lg:grid-cols-3 gap-8">
-          {/* Cart Items */}
+          {/* Itens do carrinho */}
           <div className="lg:col-span-2 space-y-4">
             <motion.h1
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              className="font-display text-2xl md:text-3xl font-bold text-foreground mb-6"
+              className="font-display text-2xl md:text-3xl font-bold mb-6"
             >
               Seu Carrinho
             </motion.h1>
@@ -115,28 +126,32 @@ const Cart = () => {
                 className="bg-card rounded-xl p-4 shadow-card border border-border"
               >
                 <div className="flex gap-4">
-                  <div className="w-20 h-20 md:w-24 md:h-24 rounded-lg overflow-hidden bg-secondary flex-shrink-0">
-                    <img src={item.product.images[0]} alt={item.product.name} className="w-full h-full object-cover" />
+                  <div className="w-20 h-20 md:w-24 md:h-24 rounded-lg overflow-hidden bg-secondary">
+                    <img
+                      src={item.product.images[0]}
+                      alt={item.product.name}
+                      className="w-full h-full object-cover"
+                    />
                   </div>
 
-                  <div className="flex-1 min-w-0">
-                    <h3 className="font-display font-semibold text-foreground truncate">{item.product.name}</h3>
-                    <p className="text-sm text-muted-foreground mt-1">
+                  <div className="flex-1">
+                    <h3 className="font-display font-semibold truncate">{item.product.name}</h3>
+                    <p className="text-sm text-muted-foreground">
                       R$ {item.product.price.toFixed(2).replace('.', ',')} cada
                     </p>
 
                     <div className="flex items-center justify-between mt-3">
-                      <div className="flex items-center border border-border rounded-lg overflow-hidden">
+                      <div className="flex items-center border rounded-lg overflow-hidden">
                         <button
                           onClick={() => updateQuantity(item.product.id, item.quantity - 1)}
-                          className="p-2 hover:bg-secondary transition-colors"
+                          className="p-2 hover:bg-secondary"
                         >
                           <Minus className="h-4 w-4" />
                         </button>
-                        <span className="px-4 py-2 font-medium min-w-[2.5rem] text-center">{item.quantity}</span>
+                        <span className="px-4">{item.quantity}</span>
                         <button
                           onClick={() => updateQuantity(item.product.id, item.quantity + 1)}
-                          className="p-2 hover:bg-secondary transition-colors"
+                          className="p-2 hover:bg-secondary"
                         >
                           <Plus className="h-4 w-4" />
                         </button>
@@ -150,7 +165,7 @@ const Cart = () => {
                           variant="ghost"
                           size="icon"
                           onClick={() => removeFromCart(item.product.id)}
-                          className="text-destructive hover:text-destructive hover:bg-destructive/10"
+                          className="text-destructive"
                         >
                           <Trash2 className="h-4 w-4" />
                         </Button>
@@ -162,48 +177,30 @@ const Cart = () => {
             ))}
           </div>
 
-          {/* Order Summary */}
-          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3 }} className="lg:col-span-1">
+          {/* Resumo */}
+          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="lg:col-span-1">
             <div className="bg-card rounded-xl p-6 shadow-card border border-border sticky top-24">
-              <h2 className="font-display text-xl font-bold text-foreground mb-6">Resumo do Pedido</h2>
+              <h2 className="font-display text-xl font-bold mb-6">Resumo do Pedido</h2>
 
-              <div className="space-y-4 mb-6">
-                <div className="flex justify-between text-sm">
-                  <span className="text-muted-foreground">Itens ({items.length})</span>
-                  <span className="font-medium">R$ {subtotal.toFixed(2).replace('.', ',')}</span>
-                </div>
-                <div className="border-t border-border pt-4">
-                  <div className="flex justify-between">
-                    <span className="font-display font-semibold text-lg">Subtotal</span>
-                    <span className="font-display font-bold text-xl text-primary">
-                      R$ {subtotal.toFixed(2).replace('.', ',')}
-                    </span>
-                  </div>
-                </div>
+              <div className="flex justify-between mb-4">
+                <span>Subtotal</span>
+                <span className="font-bold text-primary">
+                  R$ {subtotal.toFixed(2).replace('.', ',')}
+                </span>
               </div>
 
-              <div className="space-y-3 mb-6">
-                <label className="text-sm font-medium text-foreground">Observações para personalização (opcional)</label>
-                <Textarea
-                  placeholder="Ex: Nome para os itens, cores preferidas, tema da festa, datas especiais, referências de design..."
-                  value={observations}
-                  onChange={(e) => setObservations(e.target.value)}
-                  rows={4}
-                  className="resize-none"
-                />
-                <p className="text-xs text-muted-foreground">
-                  Adicione aqui informações importantes para a personalização dos seus produtos.
-                </p>
-              </div>
+              <Textarea
+                placeholder="Observações para personalização..."
+                value={observations}
+                onChange={(e) => setObservations(e.target.value)}
+                rows={4}
+                className="mb-4"
+              />
 
               <Button variant="whatsapp" size="lg" onClick={handleFinishOrder} className="w-full">
                 <MessageCircle className="h-5 w-5" />
                 Finalizar pedido no WhatsApp
               </Button>
-
-              <p className="text-xs text-muted-foreground text-center mt-4">
-                Os detalhes finais de personalização serão combinados no WhatsApp.
-              </p>
             </div>
           </motion.div>
         </div>

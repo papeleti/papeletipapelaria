@@ -11,18 +11,24 @@ const ProductDetails = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const { addToCart } = useCart();
-  const [quantity, setQuantity] = useState(1);
 
   const product = products.find(p => p.id === id);
 
   if (!product) {
     return (
       <div className="container py-20 text-center">
-        <h1 className="font-display text-2xl font-semibold mb-4">Produto não encontrado</h1>
-        <Button onClick={() => navigate('/')}>Voltar para o catálogo</Button>
+        <h1 className="font-display text-2xl font-semibold mb-4">
+          Produto não encontrado
+        </h1>
+        <Button onClick={() => navigate('/')}>
+          Voltar para o catálogo
+        </Button>
       </div>
     );
   }
+
+  const [quantity, setQuantity] = useState(1);
+  const [selectedImage, setSelectedImage] = useState(product.images[0]);
 
   const handleAddToCart = () => {
     addToCart(product, quantity);
@@ -40,29 +46,60 @@ const ProductDetails = () => {
           animate={{ opacity: 1, x: 0 }}
           className="mb-8"
         >
-          <Button variant="ghost" onClick={() => navigate('/')} className="gap-2">
+          <Button
+            variant="ghost"
+            onClick={() => navigate('/')}
+            className="gap-2"
+          >
             <ArrowLeft className="h-4 w-4" />
             Voltar para o catálogo
           </Button>
         </motion.div>
 
         <div className="grid md:grid-cols-2 gap-8 lg:gap-16">
-          {/* Image */}
+          {/* Galeria de Imagens */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
           >
-            <div className="aspect-square bg-secondary rounded-2xl overflow-hidden shadow-card">
-              <img
-                src={product.images[0]}
-                alt={product.name}
-                className="w-full h-full object-cover"
-              />
+            <div className="space-y-3">
+              {/* Imagem principal */}
+              <div className="aspect-square bg-secondary rounded-2xl overflow-hidden shadow-card">
+                <img
+                  src={selectedImage}
+                  alt={product.name}
+                  className="w-full h-full object-cover"
+                />
+              </div>
+
+              {/* Miniaturas */}
+              {product.images.length > 1 && (
+                <div className="flex gap-2 overflow-x-auto pb-1">
+                  {product.images.map((img, idx) => (
+                    <button
+                      key={idx}
+                      type="button"
+                      onClick={() => setSelectedImage(img)}
+                      className={`shrink-0 rounded-xl overflow-hidden border transition-all ${
+                        selectedImage === img
+                          ? 'ring-2 ring-primary'
+                          : 'border-border'
+                      }`}
+                    >
+                      <img
+                        src={img}
+                        alt={`${product.name} ${idx + 1}`}
+                        className="w-20 h-20 object-cover"
+                      />
+                    </button>
+                  ))}
+                </div>
+              )}
             </div>
           </motion.div>
 
-          {/* Info */}
+          {/* Informações */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -87,18 +124,25 @@ const ProductDetails = () => {
             </p>
 
             <div className="border-t border-border pt-6 space-y-4">
-              <label className="text-sm font-medium text-foreground">Quantidade</label>
+              <label className="text-sm font-medium text-foreground">
+                Quantidade
+              </label>
+
               <div className="flex items-center gap-4">
                 <div className="flex items-center border border-border rounded-lg overflow-hidden">
                   <button
-                    onClick={() => setQuantity(prev => Math.max(1, prev - 1))}
+                    onClick={() =>
+                      setQuantity(prev => Math.max(1, prev - 1))
+                    }
                     className="p-3 hover:bg-secondary transition-colors"
                   >
                     <Minus className="h-5 w-5" />
                   </button>
+
                   <span className="px-6 py-3 font-semibold min-w-[4rem] text-center text-lg">
                     {quantity}
                   </span>
+
                   <button
                     onClick={() => setQuantity(prev => prev + 1)}
                     className="p-3 hover:bg-secondary transition-colors"
@@ -110,7 +154,12 @@ const ProductDetails = () => {
             </div>
 
             <div className="flex flex-col sm:flex-row gap-4 pt-4">
-              <Button onClick={handleAddToCart} variant="accent" size="lg" className="flex-1">
+              <Button
+                onClick={handleAddToCart}
+                variant="accent"
+                size="lg"
+                className="flex-1 gap-2"
+              >
                 <ShoppingCart className="h-5 w-5" />
                 Adicionar ao carrinho
               </Button>
@@ -118,7 +167,9 @@ const ProductDetails = () => {
 
             <div className="bg-secondary/50 rounded-xl p-4 mt-6">
               <p className="text-sm text-muted-foreground">
-                💡 <strong>Dica:</strong> Após adicionar ao carrinho, você poderá informar suas preferências de personalização (cores, nomes, temas) e finalizar o pedido pelo WhatsApp.
+                💡 <strong>Dica:</strong> Após adicionar ao carrinho, você poderá
+                informar suas preferências de personalização (cores, nomes,
+                temas) e finalizar o pedido pelo WhatsApp.
               </p>
             </div>
           </motion.div>

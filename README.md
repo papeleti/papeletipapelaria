@@ -1,73 +1,111 @@
-# Welcome to your Lovable project
+🦋 Papeleti — Papelaria Personalizada
 
-## Project info
+Site institucional e catálogo online da Papeleti, uma papelaria personalizada feita com carinho 💚
+O projeto permite que clientes visualizem produtos, escolham quantidades, adicionem observações e finalizem o pedido diretamente pelo WhatsApp.
 
-**URL**: https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID
+✨ Funcionalidades
 
-## How can I edit this code?
+🛍️ Catálogo de produtos com:
 
-There are several ways of editing your application.
+Imagens
 
-**Use Lovable**
+Preço
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and start prompting.
+Descrição curta e detalhada
 
-Changes made via Lovable will be committed automatically to this repo.
+➕ Seleção de quantidade diretamente no catálogo
 
-**Use your preferred IDE**
+🛒 Carrinho de compras
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+📝 Campo de observações personalizadas no carrinho
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+📲 Finalização do pedido via WhatsApp (mensagem automática)
 
-Follow these steps:
+📄 Páginas institucionais:
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+Sobre
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+Como funciona
 
-# Step 3: Install the necessary dependencies.
-npm i
+🎨 Design moderno com animações suaves
 
-# Step 4: Start the development server with auto-reloading and an instant preview.
+📱 Layout responsivo (mobile e desktop)
+
+🧱 Tecnologias Utilizadas
+
+Vite
+
+React
+
+TypeScript
+
+React Router DOM
+
+Tailwind CSS
+
+Framer Motion
+
+Lucide Icons
+
+Context API (gerenciamento do carrinho)
+
+GitHub Pages (deploy)
+
+🚀 Rodando o projeto localmente
+1️⃣ Clone o repositório
+git clone https://github.com/seu-usuario/papeleti.git
+
+2️⃣ Acesse a pasta do projeto
+cd papeleti
+
+3️⃣ Instale as dependências
+npm install
+
+4️⃣ Rode o projeto em ambiente local
 npm run dev
-```
 
-**Edit a file directly in GitHub**
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+O projeto estará disponível em:
+👉 http://localhost:5173
 
-**Use GitHub Codespaces**
+📦 Build para produção
+npm run build
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
 
-## What technologies are used for this project?
+Os arquivos finais serão gerados na pasta dist/.
 
-This project is built with:
+🌐 Deploy
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+O projeto está preparado para deploy no GitHub Pages e funciona perfeitamente com Cloudflare como DNS/CDN.
 
-## How can I deploy this project?
+📁 Estrutura do projeto (resumo)
+src/
+ ├─ assets/           # Imagens e logo
+ ├─ components/       # Componentes reutilizáveis
+ ├─ contexts/         # Context API (Carrinho)
+ ├─ pages/            # Páginas (Home, Sobre, Como Funciona, Carrinho)
+ ├─ data/             # Lista de produtos
+ ├─ routes/           # Rotas da aplicação
+ └─ main.tsx
 
-Simply open [Lovable](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and click on Share -> Publish.
+📲 Fluxo de pedido
 
-## Can I connect a custom domain to my Lovable project?
+Cliente escolhe o produto
 
-Yes, you can!
+Define a quantidade
 
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
+Adiciona ao carrinho
 
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)
+Escreve observações personalizadas
+
+Finaliza o pedido via WhatsApp ✨
+
+🦋 Sobre a Papeleti
+
+A Papeleti é uma papelaria personalizada que transforma ideias em produtos únicos, feitos com atenção aos detalhes e muito carinho 💚
+Cadernos, planners, agendas, etiquetas, convites e muito mais.
+
+📄 Licença
+
+Este projeto é de uso privado da Papeleti.
+Todos os direitos reservados.

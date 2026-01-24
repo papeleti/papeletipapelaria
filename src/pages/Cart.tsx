@@ -14,7 +14,7 @@ const Cart = () => {
   const whatsappNumber = '5582981696694';
 
   const generateWhatsAppMessage = () => {
-    let message = 'Olá, vim pelo site da Papeleti 😊\n\n';
+    let message = 'Oi, vim pelo site da Papeleti 😊\n\n';
     message += '*📦 Meu pedido:*\n\n';
 
     items.forEach((item) => {

@@ -6,6 +6,8 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { CartProvider } from "@/contexts/CartContext";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
+import { ScrollToTop } from "@/components/ScrollToTop";
+
 import Index from "./pages/Index";
 import ProductDetails from "./pages/ProductDetails";
 import Cart from "./pages/Cart";
@@ -22,8 +24,12 @@ const App = () => (
         <Toaster />
         <Sonner />
         <BrowserRouter>
+          {/* 👇 garante scroll no topo ao trocar de página */}
+          <ScrollToTop />
+
           <div className="flex flex-col min-h-screen">
             <Header />
+
             <div className="flex-1">
               <Routes>
                 <Route path="/" element={<Index />} />
@@ -34,6 +40,7 @@ const App = () => (
                 <Route path="*" element={<NotFound />} />
               </Routes>
             </div>
+
             <Footer />
           </div>
         </BrowserRouter>

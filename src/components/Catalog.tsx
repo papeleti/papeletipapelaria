@@ -1,6 +1,6 @@
 import { forwardRef } from 'react';
 import { motion } from 'framer-motion';
-import { products } from '@/data/products';
+import { products } from '@/products';
 import { ProductCard } from './ProductCard';
 
 export const Catalog = forwardRef<HTMLElement>((_, ref) => {

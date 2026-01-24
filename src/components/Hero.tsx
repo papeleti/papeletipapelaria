@@ -36,19 +36,7 @@ export function Hero({ onScrollToCatalog }: HeroProps) {
           transition={{ duration: 0.8 }}
           className="max-w-3xl mx-auto"
         >
-          {/* Logo */}
-          <motion.div
-            initial={{ scale: 0.8, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="mb-8 flex justify-center"
-          >
-            <img
-              src={logo}
-              alt="Papeleti"
-              className="w-32 h-32 md:w-40 md:h-40 rounded-2xl shadow-hover object-cover"
-            />
-          </motion.div>
+
 
           {/* Decorative icon */}
           <motion.div
@@ -67,9 +55,8 @@ export function Hero({ onScrollToCatalog }: HeroProps) {
             transition={{ delay: 0.5, duration: 0.6 }}
             className="font-display text-4xl md:text-5xl lg:text-6xl font-bold text-foreground mb-6 leading-tight"
           >
-            Papeleti {' '}
+            Papeleti Papelaria personalizada {' '}
             <span className="text-primary">
-              Papelaria personalizada
             </span>{' '}
           </motion.h1>
 

@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Plus, Minus, ShoppingCart } from 'lucide-react';
 import { motion } from 'framer-motion';
-import { Product } from '@/data/products';
+import { Product } from '../products/types';
 import { useCart } from '@/contexts/CartContext';
 import { Button } from '@/components/ui/button';
 import { toast } from '@/hooks/use-toast';

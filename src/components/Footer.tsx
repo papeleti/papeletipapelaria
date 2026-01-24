@@ -9,7 +9,7 @@ export function Footer() {
   const EMOJI_SMILE = '\u{1F60A}'; // 😊
 
   const buildWhatsAppMessage = () => {
-    return `Olá! Vim pelo site da Papeleti ${EMOJI_SMILE}`;
+    return `Oi! Vim pelo site da Papeleti ${EMOJI_SMILE}`;
   };
 
   const handleOpenWhatsApp = (e: React.MouseEvent<HTMLAnchorElement>) => {

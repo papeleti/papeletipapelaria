@@ -1,4 +1,4 @@
-import capa from './assets/0-miolo-feminino-1dpp.jpg';
+import capa from './assets/0-miolo-feminino-1dpp.jpeg';
 import detalhe1 from './assets/1-miolo-feminino-1dpp.jpg';
 import detalhe2 from './assets/2-miolo-feminino-1dpp.jpg';
 import detalhe3 from './assets/3-miolo-feminino-1dpp.jpg';

@@ -1,4 +1,4 @@
-import capa from './assets/0-capa-escolar.jpg';
+import capa from './assets/0-capa-escolar.jpeg';
 import detalhe1 from './assets/1-agenda-escolar.png';
 import detalhe2 from './assets/2-agenda-escolar.png';
 import detalhe3 from './assets/3-agenda-escolar-2pp.jpg';

@@ -110,7 +110,7 @@ export function Footer() {
                 className="flex items-center gap-2 text-sm text-primary-foreground/80 hover:text-primary-foreground transition-colors"
               >
                 <Instagram className="h-4 w-4" />
-                @papeleti
+                @papeleti.papelaria
               </a>
             </div>
           </div>
